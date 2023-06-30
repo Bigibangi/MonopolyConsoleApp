@@ -1,11 +1,18 @@
-﻿namespace Model {
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Model {
+
+    [Table("palletes")]
     public class Pallete : BaseContainer {
         private List<ICompactable> _containers = new();
+
+        public Pallete() {
+        }
 
         public Pallete(float length, float width, float height, float weight = 30) : base(length, width, height, weight) {
         }
 
+        [NotMapped]
         public float Volume {
             get {
                 var v = _width * _height  * _depth;
@@ -19,6 +26,7 @@
             private set { }
         }
 
+        [NotMapped]
         public float Weight {
             get {
                 return _containers.Sum(
@@ -26,7 +34,18 @@
             }
         }
 
-        public DateOnly SuitDate => _containers.Min(b => b.SuitDate);
+        [NotMapped]
+        public List<ICompactable> Containers { get { return _containers; } }
+
+        [NotMapped]
+        public DateOnly SuitDate {
+            get {
+                if (_containers.Count > 0) {
+                    return _containers.Min(b => b.SuitDate);
+                }
+                return DateOnly.MinValue;
+            }
+        }
 
         public bool TryAddContainer<T>(BaseContainer container) where T : ICompactable {
             if (container.Width > _width || container.Depth > _depth) {
