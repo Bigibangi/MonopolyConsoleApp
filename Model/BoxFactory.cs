@@ -34,7 +34,7 @@
         ///<param name="w">Вес в кг</param>
         ///<param name="prodDate">Дата производства</param>
         ///<param name="suitDate">Срок годности</param>
-        public T CreateContainer(float a, float b, int c, float w, DateOnly prodDate, DateOnly suitDate) {
+        public T CreateContainer(float a, float b, float c, float w, DateOnly prodDate, DateOnly suitDate) {
             if (a <= 0 || b <= 0 || c <= 0 || w <= 0 || prodDate <= DateOnly.MinValue || suitDate <= DateOnly.MinValue) {
                 throw new Exception("Parametres must be positive!");
             }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Model;
 
 var builder = new ConfigurationBuilder();
 builder.SetBasePath(Directory.GetCurrentDirectory());
@@ -10,10 +9,11 @@ var connectionstring = config.GetConnectionString("DefaultConnection");
 var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
 var options = optionsBuilder.UseNpgsql(connectionstring).Options;
 using (var db = new ApplicationContext(options)) {
-    var pal = new PalleteFactory<Pallete>().CreateContaner(1f,1f,1f);
-    db.Pallets.Add(pal);
-    db.SaveChanges();
     var pallets = db.Pallets.ToList();
+    var boxes = db.Boxes.ToList();
+    foreach (var box in boxes) {
+        Console.WriteLine(box.ToString());
+    }
     var result = pallets.
         OrderByDescending(p => p.SuitDate).
         OrderBy(p => p.Weight).ToList();

@@ -8,7 +8,9 @@ namespace Model {
         private DateOnly _prodDate;
         private DateOnly _suitDate;
 
-        public Box() { }
+        public Box() {
+        }
+
         public Box(float depth,
                    float width,
                    float height,
@@ -39,12 +41,14 @@ namespace Model {
         [Column("produced")]
         public DateOnly ProdDate => _prodDate;
 
-        [Column("suitdate")]
+        [Column("suitdate", TypeName = "date")]
         [Required]
         public DateOnly SuitDate {
             get {
-                if (_prodDate.Year > -1) {
-                    return _prodDate.AddDays(100);
+                if (_suitDate == default) {
+                    if (_prodDate.Year > -1) {
+                        return _prodDate.AddDays(100);
+                    }
                 }
                 return _suitDate;
             }
@@ -62,8 +66,12 @@ namespace Model {
 
         [Required]
         [Column("weight")]
-        public float Weight => _weight;
+        public float Weight { get { return _weight; } set { _weight = value; } }
 
         public float Volume => _width * _depth * _height;
+
+        public override string ToString() {
+            return string.Format($"{Id}" + " " + $"{Weight}" + " " + $"{Volume}" + " " + $"{SuitDate}");
+        }
     }
 }

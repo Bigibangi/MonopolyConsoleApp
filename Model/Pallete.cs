@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using NpgsqlTypes;
 
 namespace Model {
 
@@ -60,7 +61,7 @@ namespace Model {
         }
 
         public override string ToString() {
-            return string.Format($"{Id}" + " " + $"{Weight}" + " " + $"{SuitDate}");
+            return string.Format($"{Id}" + " " + $"{Weight}" + " " + $"{Volume}" + " " + $"{SuitDate}");
         }
     }
 }

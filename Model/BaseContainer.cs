@@ -24,15 +24,12 @@ namespace Model {
         public uint Id => _id;
 
         [Required]
-        [Column(TypeName = "depth")]
-        public float Depth => _depth;
+        public float Depth { get { return _depth; } set { _depth = value; } }
 
         [Required]
-        [Column(TypeName = "width")]
-        public float Width => _width;
+        public float Width { get { return _width; } set { _width = value; } }
 
         [Required]
-        [Column(TypeName = "height")]
         public float Height => _height;
     }
 }
