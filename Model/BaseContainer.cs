@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Model {
 
     public abstract class BaseContainer {
-        protected uint _id;
+        protected int _id;
         protected float _depth;
         protected float _width;
         protected float _height;
@@ -21,7 +21,7 @@ namespace Model {
         }
 
         [Required]
-        public uint Id => _id;
+        public int Id => _id;
 
         [Required]
         public float Depth { get { return _depth; } set { _depth = value; } }

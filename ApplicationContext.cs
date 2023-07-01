@@ -4,6 +4,7 @@ using Model;
 public class ApplicationContext : DbContext {
     public DbSet<Box> Boxes => Set<Box>();
     public DbSet<Pallete> Pallets => Set<Pallete>();
+    public DbSet<PalleteBoxes> Connections => Set<PalleteBoxes>();
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options) {

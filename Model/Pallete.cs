@@ -61,7 +61,7 @@ namespace Model {
         }
 
         public override string ToString() {
-            return string.Format($"{Id}" + " " + $"{Weight}" + " " + $"{Volume}" + " " + $"{SuitDate}");
+            return string.Format($"{Id}" + "\t" + $"{Weight}" + "\t" + $"{Volume}" + "\t" + $"{SuitDate}");
         }
     }
 }
