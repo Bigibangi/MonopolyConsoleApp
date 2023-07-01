@@ -1,4 +1,4 @@
-﻿/*
+﻿
 using NUnit.Framework;
 using NSubstitute;
 using FluentAssertions;
@@ -66,8 +66,8 @@ namespace TestMonopolyApp {
 
         /*Если в конструктор передать дату более раннюю,
          * чем текущая, она автоматически станет датой производста.
-        А срок годности будет дата производста + 100 дней
-
+        *А срок годности будет дата производста + 100 дней
+        */
 [Test]
 public void WhenDateIsPast_AndCreateBox_ThenDateMustBeValid() {
     // Arrange.
@@ -126,4 +126,3 @@ public void WhenCreatePallete_AndPalleteNotEmpty_ThenSuitDateMustBeValid() {
 }
     }
 }
-*/
