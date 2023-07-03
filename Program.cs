@@ -23,14 +23,19 @@ using (var db = new ApplicationContext(options)) {
                 }
             }
         }
-        //var box = boxes.Select(x=>x.Id.Equals(connection.Box_id));
-        //var pallete = pallets.Select(x=>x.Id.Equals(connection.Pallete_id));
     }
     var result = pallets.
-        OrderBy(p => p.Weight).
-        OrderBy(p => p.SuitDate).
-        ToList();
-    foreach (var p in result) {
-        Console.WriteLine(p.ToString());
+        GroupBy(x => new {x.SuitDate , x.Weight, x.Id}).
+        OrderBy(g => g.Key.Weight).
+        OrderByDescending(g => g.Key.SuitDate).
+        Select(x => new{
+            x.Key.Weight,
+            x.Key.SuitDate,
+            x.Key.Id
+        });
+    foreach (var g in result) {
+        Console.WriteLine($"Date: {g.SuitDate}\n" +
+            $"Weight: {g.Weight} \t ID: {g.Id}"
+            );
     }
 }
