@@ -24,7 +24,7 @@ using (var db = new ApplicationContext(options)) {
             }
         }
     }
-    var result = pallets.
+    var groupBySuitDateAndWeight = pallets.
         GroupBy(x => new {x.SuitDate , x.Weight, x.Id}).
         OrderBy(g => g.Key.Weight).
         OrderByDescending(g => g.Key.SuitDate).
@@ -33,9 +33,29 @@ using (var db = new ApplicationContext(options)) {
             x.Key.SuitDate,
             x.Key.Id
         });
-    foreach (var g in result) {
+    foreach (var g in groupBySuitDateAndWeight) {
         Console.WriteLine($"Date: {g.SuitDate}\n" +
             $"Weight: {g.Weight} \t ID: {g.Id}"
             );
     }
+    var result = from pal in pallets
+                 join con in connections
+                 on pal.Id equals con.Pallete_id
+                 join box in boxes
+                 on con.Box_id equals box.Id
+                 orderby box.SuitDate descending
+                 select new {
+                     Id = pal.Id,
+                     Volume = pal.Volume,
+                     Date = pal.SuitDate
+                 };
+    foreach (var box in result) {
+        Console.WriteLine(box);
+    }
 }
+/*
+ * select distinct * from palletes
+full join palletes_boxes on palletes.pallete_id = palletes_boxes.pallete_id
+full join boxes on palletes_boxes.box_id = boxes.box_id
+order by suitdate desc
+*/
