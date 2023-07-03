@@ -38,17 +38,17 @@ using (var db = new ApplicationContext(options)) {
             $"Weight: {g.Weight} \t ID: {g.Id}"
             );
     }
-    var result = from pal in pallets
-                 join con in connections
+    var result = (from pal in pallets
+                  join con in connections
                  on pal.Id equals con.Pallete_id
-                 join box in boxes
+                  join box in boxes
                  on con.Box_id equals box.Id
-                 orderby box.SuitDate descending
-                 select new {
-                     Id = pal.Id,
-                     Volume = pal.Volume,
-                     Date = pal.SuitDate
-                 };
+                  orderby box.SuitDate descending
+                  select new {
+                      Id = pal.Id,
+                      Volume = pal.Volume,
+                      Date = pal.SuitDate
+                  }).Distinct();
     foreach (var box in result) {
         Console.WriteLine(box);
     }
